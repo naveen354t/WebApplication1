@@ -9,10 +9,10 @@ namespace WebApplication1.Data
         {
             
         }
-        DbSet<Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Tabel-1
+            //Tabel-1 good way of implementing
            modelBuilder.ApplyConfiguration(new StudentConfig());
             //Tabel-2 
 

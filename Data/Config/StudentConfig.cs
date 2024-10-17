@@ -20,9 +20,11 @@ namespace WebApplication1.Data.Config
                 new Student
                 {
                     Id = 1,
-                    StudentName = "Test",
-                    Address="IND",
-                    Email="Test@gmail.com",
+                    StudentName = "naveenThadigadapa",
+                    Address="USA",
+                    Email="naveen@tezo.com",
+                    DOB=new DateTime(2015, 12, 31)
+
 
                 },
                 new Student
@@ -31,6 +33,7 @@ namespace WebApplication1.Data.Config
                     StudentName = "naveen",
                     Address="IND",
                     Email="naveen@gmail.com",
+                    DOB=new DateTime(2015, 12, 3)
 
                 }
 
