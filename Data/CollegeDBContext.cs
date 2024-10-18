@@ -16,6 +16,7 @@ namespace WebApplication1.Data
             //Tabel-1 good way of implementing
            modelBuilder.ApplyConfiguration(new StudentConfig());
             //Tabel-2 
+            modelBuilder.ApplyConfiguration(new DepartmentConfig());
 
         }
 

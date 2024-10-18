@@ -3,7 +3,8 @@
     public class Department
     {
         public int Id { get; set; }
-        public int DepartmentName { get; set; }
-        public int Description { get; set; }
+        public string DepartmentName { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
