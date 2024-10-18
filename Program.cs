@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 builder.Services.AddTransient<IStudentReopository, StudentRepositiory>();
-
+builder.Services.AddScoped(typeof(ICollegeRepository<>),typeof(CollegeRepository<>));
 builder.Services.AddDbContext<CollegeDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("CollegeAppDBConnection"));

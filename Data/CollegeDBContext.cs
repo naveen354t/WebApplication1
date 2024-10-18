@@ -10,6 +10,7 @@ namespace WebApplication1.Data
             
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Department> Departments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Tabel-1 good way of implementing

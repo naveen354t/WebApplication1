@@ -16,9 +16,9 @@ namespace WebApplication1.Controllers
     {
         //private readonly ILogger<StudentController> _logger;
         //private readonly CollegeDBContext _dbContext;
-        private readonly IStudentReopository _studentReopository;
+        private readonly ICollegeRepository<Student> _studentReopository;
         private readonly IMapper _mapper;
-        public StudentController(IMapper mapper, IStudentReopository studentReopository)
+        public StudentController(IMapper mapper, ICollegeRepository<Student> studentReopository)
         {
             //_logger = logger;
             //_dbContext = dBContext;
@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
             if (id <= 0)
                 return BadRequest();
             //var student = await _dbContext.Students.Where(n => n.Id == id).FirstOrDefaultAsync();
-            var student=await _studentReopository.GetByIdAsync(id);
+            var student=await _studentReopository.GetAsync(student=>student.Id==id);
             if (student == null)
                 return NotFound($"The student with id {id} not found");
 
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
             //var student = await _dbContext.Students.Where(n => n.StudentName == name).FirstOrDefaultAsync();
-            var student= await _studentReopository.GetByNameAsync(name);
+            var student= await _studentReopository.GetAsync(student=>student.StudentName.ToLower().Contains(name.ToLower()));
             if (student == null)
                 return NotFound($"The student with name {name} not found");
             //var studentDTO = new StudentDTO
@@ -115,12 +115,12 @@ namespace WebApplication1.Controllers
             //    Email = model.Email
             //};
             Student student=_mapper.Map<Student>(dto);
-            var id=await _studentReopository.CreateAsync(student);
+            var studentAfterCreation=await _studentReopository.CreateAsync(student);
             
             
             //await _dbContext.Students.AddAsync(student);
             //await _dbContext.SaveChangesAsync();
-            dto.Id=id;
+            dto.Id=studentAfterCreation.Id;
             return CreatedAtRoute("GetStudentById",new { id=dto.Id },dto);
         }
 
@@ -134,7 +134,7 @@ namespace WebApplication1.Controllers
         {
             if(dto==null || dto.Id<=0)
                 return BadRequest();
-            var existingStudent=await _studentReopository.GetByIdAsync(dto.Id,true);
+            var existingStudent=await _studentReopository.GetAsync(student=>student.Id==dto.Id,true);
             //var existingStudent= await _dbContext.Students.AsNoTracking().Where(S=>S.Id==dto.Id).FirstOrDefaultAsync();
             if(existingStudent==null)
                 return NotFound();
@@ -170,7 +170,7 @@ namespace WebApplication1.Controllers
                 return BadRequest();
 
             //var student = await _dbContext.Students.Where(n => n.Id == id).FirstOrDefaultAsync();
-            var studentId=await _studentReopository.GetByIdAsync(id);
+            var studentId=await _studentReopository.GetAsync(Student=>Student.Id==id);
             if (studentId == null)
             {
                 return NotFound($"The student with id {id} not found");
